@@ -24,6 +24,11 @@ export class User extends BaseTable {
   })
   password: string;
 
+  @Column({
+    unique: true, // 핸드폰 번호는 고유해야 함
+  })
+  phoneNumber: string;
+
   @Column({ enum: Role, default: Role.user })
   role: Role;
 }
