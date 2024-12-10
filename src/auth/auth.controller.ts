@@ -10,7 +10,8 @@ export class AuthController {
   registerUser(
     @Headers('authorization') token: string,
     @Body('phoneNumber') phoneNumber: string,
+    @Body('name') name: string,
   ) {
-    return this.authService.register(token, phoneNumber);
+    return this.authService.register(token, phoneNumber, name);
   }
 }

@@ -12,6 +12,9 @@ export class User extends BaseTable {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  name: string;
+
   @Column({
     unique: true,
   })

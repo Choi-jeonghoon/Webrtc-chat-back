@@ -54,7 +54,7 @@ export class AuthService {
 
   //회원가입
   //rawToken -> "Basic Stoken"
-  async register(rawToken: string, phoneNumber: string) {
+  async register(rawToken: string, phoneNumber: string, name: string) {
     const { email, password } = this.parseBasicToken(rawToken);
 
     const user = await this.userRepository.findOne({
@@ -76,6 +76,7 @@ export class AuthService {
       email,
       password: hash,
       phoneNumber,
+      name,
     });
 
     return this.userRepository.findOne({
