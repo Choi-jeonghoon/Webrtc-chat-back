@@ -144,7 +144,6 @@ export class AuthService {
     } catch (error) {
       // 로그인 실패 시 오류 처리
       if (error instanceof UnauthorizedException) {
-        // UnauthorizedException은 이미 적절한 응답을 포함하고 있으므로 그대로 던집니다.
         throw error;
       }
 
