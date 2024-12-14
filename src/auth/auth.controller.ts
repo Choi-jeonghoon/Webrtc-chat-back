@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Get,
   Headers,
   NotFoundException,
   Post,
@@ -45,12 +44,12 @@ export class AuthController {
       const { accessToken, refreshToken } = loginResponse.data;
 
       // accessToken 쿠키 설정 (HttpOnly)
-      res.cookie('accessToken', accessToken, {
-        httpOnly: true, // 자바스크립트에서 쿠키 접근 불가
-        secure: false, // 로컬 개발 환경에서는 false로 설정
-        maxAge: 60 * 60 * 1000, // 1시간 유효
-        sameSite: 'strict', // SameSite 설정으로 CSRF 공격 방지
-      });
+      // res.cookie('accessToken', accessToken, {
+      //   httpOnly: true, // 자바스크립트에서 쿠키 접근 불가
+      //   secure: false, // 로컬 개발 환경에서는 false로 설정
+      //   maxAge: 60 * 60 * 1000, // 1시간 유효
+      //   sameSite: 'strict', // SameSite 설정으로 CSRF 공격 방지
+      // });
 
       // refreshToken 쿠키 설정 (HttpOnly)
       res.cookie('refreshToken', refreshToken, {
@@ -63,14 +62,12 @@ export class AuthController {
       // console.log('Access Token:', accessToken);
       // console.log('Refresh Token:', refreshToken);
 
-      return res.json({ status: 'success' });
+      return res.json({ status: 'success', accessToken });
     }
 
     // 실패 응답을 그대로 반환
     return res.json(loginResponse);
   }
-  // 사용자가 로그인 했는지 확인하는 API(즉, 엑세스토큰이 유요한지)
-  @Get('check-login')
 
   //엑세스토큰을 발급하기 위한 API
   @Post('refresh')

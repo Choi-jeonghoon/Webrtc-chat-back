@@ -54,8 +54,7 @@ export class AuthService {
     };
   }
 
-  //회원가입
-  //rawToken -> "Basic Stoken"
+  //회원가입 rawToken -> "Basic Stoken"
   async register(rawToken: string, phoneNumber: string, name: string) {
     const { email, password } = this.parseBasicToken(rawToken);
 
@@ -128,12 +127,12 @@ export class AuthService {
 
       const refreshToken = await this.jwtService.signAsync(
         { sub: user.id, role: user.role, type: 'refresh' },
-        { secret: refreshTokenSecret, expiresIn: '24h' },
+        { secret: refreshTokenSecret, expiresIn: '7d' },
       );
 
       const accessToken = await this.jwtService.signAsync(
         { sub: user.id, role: user.role, type: 'access' },
-        { secret: accessTokenSecret, expiresIn: '300s' },
+        { secret: accessTokenSecret, expiresIn: '5m' },
       );
 
       // 성공 응답
@@ -156,7 +155,7 @@ export class AuthService {
     }
   }
 
-  //리프레쉬 토큰을 활용한 엑세스 토큰 재발급
+  // 리프레시 토큰을 활용한 엑세스 토큰 재발급
   async refreshAccessToken(refreshToken: string) {
     const refreshTokenSecret = this.configService.get<string>(
       'REFRESH_TOKEN_SECRET',
@@ -180,7 +179,7 @@ export class AuthService {
       throw new NotFoundException('사용자를 찾을 수 없습니다.');
     }
 
-    // 새로운 액세스 토큰 생성
+    // 리프레시 토큰을 활용한 엑세스 토큰 재발급
     const accessTokenSecret = this.configService.get<string>(
       'ACCESS_TOKEN_SECRET',
     );
